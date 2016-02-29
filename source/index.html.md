@@ -7,7 +7,6 @@ language_tabs:
   - python
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -18,125 +17,150 @@ search: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the litteBits Cloud API! You can use our API to access
+litteBits Cloud API endpoints to manage your cloudbits.
 
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in Shell, Ruby, and Python! You can view
+code examples in the dark area to the right, and you can switch the
+programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/tripit/slate). Feel free to edit it and use it as a base for your own API's documentation.
+This example API documentation page was created with
+[Slate](https://github.com/tripit/slate). Feel free to edit it and use
+it as a base for your own API's documentation.
 
 # Authentication
 
 > To authorize, use this code:
 
 ```ruby
-require 'kittn'
+require 'littleBits'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+api = littleBits::APIClient.authorize!('meowmeowmeow')
 ```
 
 ```python
-import kittn
+import littleBits
 
-api = kittn.authorize('meowmeowmeow')
+api = littleBits.authorize('meowmeowmeow')
 ```
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
+curl "https://api-http.littlebitscloud.cc"
+  -H "Authorization: Bearer meowmeowmeow"
 ```
 
 > Make sure to replace `meowmeowmeow` with your API key.
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
+litteBits uses API keys to allow access to the API. You get you API
+key at our [cloud control](https://control.littlebitscloud.cc).
 
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+littleBits expects for the API key to be included in all API requests
+to the server in a header that looks like the following:
 
-`Authorization: meowmeowmeow`
+`Authorization: Bearer meowmeowmeow`
 
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-# Kittens
+# Devices
 
-## Get All Kittens
+## Get All Your Devices
 
 ```ruby
-require 'kittn'
+require 'littleBits'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+api = littleBits::APIClient.authorize!('meowmeowmeow')
+api.devices.get
 ```
 
 ```python
-import kittn
+import littleBits
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
+api = littleBits.authorize('meowmeowmeow')
+api.devices.get()
 ```
 
 ```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
+curl "https://api-http.littlebitscloud.cc/v2/devices"
+  -H "Authorization: Bearer meowmeowmeow"
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 [
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
+	{
+		"label": "my cloudbit 1",
+		"id": "00e040000001",
+		"user_id": 1,
+		"is_connected": false,
+		"subscriptions":[
+			{
+				"publisher_id": "00e040000002",
+				"subscriber_id": "00e040000001",
+				"publisher_events":[
+					{
+						"name": "amplitude"
+					}
+				]
+			},
+		{
+				"publisher_id": "00e040000001",
+				"subscriber_id": "https://yourserver.com/endpoint",
+				"publisher_events":[
+					{
+						"name": "amplitude:delta:ignite"
+					}
+				]
+			}
+		],
+		"subscribers": [
+		],
+		"input_interval_ms": 750
+	},
+	{
+		"label": "my cloudbit 2",
+		"id": "00e040000002",
+		"user_id": 1,
+		"is_connected": false,
+		"subscriptions": [
+		],
+		"subscribers":[
+			{
+				"publisher_id": "00e040000002",
+				"subscriber_id": "00e040000001",
+				"publisher_events": [
+					{
+						"name": "amplitude"
+					}
+				]
+			}
+		],
+		"input_interval_ms":750
+	}
 ]
 ```
 
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
+## Get a Specific Device
 
 ```ruby
-require 'kittn'
+require 'littleBits'
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+api = littleBit::APIClient.authorize!('meowmeowmeow')
+api.device.get("00e040000001")
 ```
 
 ```python
-import kittn
+import littleBits
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+api = littleBits.authorize('meowmeowmeow')
+api.device.get("00e040000001")
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2"
+curl "http://api-http.littlebitscloud.cc/v2/devices/00e040000001"
   -H "Authorization: meowmeowmeow"
 ```
 
@@ -144,25 +168,44 @@ curl "http://example.com/api/kittens/2"
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+		"label": "my cloudbit 1",
+		"id": "00e040000001",
+		"user_id": 1,
+		"is_connected": false,
+		"subscriptions":[
+			{
+				"publisher_id": "00e040000002",
+				"subscriber_id": "00e040000001",
+				"publisher_events":[
+					{
+						"name": "amplitude"
+					}
+				]
+			},
+		{
+				"publisher_id": "00e040000001",
+				"subscriber_id": "https://yourserver.com/endpoint",
+				"publisher_events":[
+					{
+						"name": "amplitude:delta:ignite"
+					}
+				]
+			}
+		],
+		"subscribers": [
+		],
+		"input_interval_ms": 750
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+This endpoint retrieves a specific device.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api-http.littlebitscloud.cc/v2/devices/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
-
+ID | The ID of the device to retrieve
