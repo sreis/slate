@@ -148,3 +148,33 @@ Parameter | Description
 --------- | -----------
   label | The new label for this device. Default is "cloudbit"
   input_interval_ms | Interval in milliseconds when input is read and broadcast. Default is 250 and the minimum is 200.
+
+## Output voltage on device
+
+```shell
+curl "https://api-http.littlebitscloud.cc/v2/devices/00e040000001/output" \
+  -X POST \
+  -H "Authorization: meowmeowmeow" \
+  -H "Content-type: application/json" \
+  -d '{ "percent": 100, "duration_ms": 3000 }'
+```
+
+This endpoint outputs voltage on a device.
+
+### HTTP Request
+
+`POST https://api-http.littlebitscloud.cc/v2/devices/<ID>/output`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+  ID | The ID of the device to send output to
+
+### JSON Payload
+
+Parameter | Description
+--------- | -----------
+  percent | A percent of the maximum current output between 0 and 100. Default is 100.
+  duration_ms | Output will be sustained for the given milliseconds. If duration_ms is -1 it will last forever or until another ouput is received by device. Maximum is 32000 and default is 3000 (3 seconds).
+
