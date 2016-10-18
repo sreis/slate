@@ -46,7 +46,7 @@ api = littleBits.authorize('meowmeowmeow')
 
 ```shell
 # With shell, you can just pass the correct header with each request
-curl "https://api-http.littlebitscloud.cc"
+curl "https://api-http.littlebitscloud.cc" \
   -H "Authorization: Bearer meowmeowmeow"
 ```
 
@@ -83,7 +83,7 @@ api.devices.get()
 ```
 
 ```shell
-curl "https://api-http.littlebitscloud.cc/v2/devices"
+curl "https://api-http.littlebitscloud.cc/v2/devices" \
   -H "Authorization: Bearer meowmeowmeow"
 ```
 
@@ -160,7 +160,7 @@ api.device.get("00e040000001")
 ```
 
 ```shell
-curl "http://api-http.littlebitscloud.cc/v2/devices/00e040000001"
+curl "http://api-http.littlebitscloud.cc/v2/devices/00e040000001" \
   -H "Authorization: meowmeowmeow"
 ```
 
