@@ -4,6 +4,18 @@
 
 Use this endpoint to create a subscription between devices or to receive events in a HTTP server that you control.
 
+```javascript
+api.subscribe({ publisher_id: 00e040000001, subscriber_id: 00e040000002 })
+
+api.subscribe({ publisher_id: 00e040000001, subscriber_id: 00e040000002 })
+
+api.subscribe({
+	publisher_id: 00e040000001,
+	subscriber_id: 00e040000002,
+	publisher_events: ['amplitude']
+})
+```
+
 ```shell
 curl "https://api-http.littlebitscloud.cc/v2/subscriptions" \
   -X POST \
@@ -24,13 +36,14 @@ curl "https://api-http.littlebitscloud.cc/v2/subscriptions" \
   -d '{ "publisher_id": "00e040000001" ,"subscriber_id": "00e040000002", "publisher_events: "['amplitude']" }'
 ```
 
+
 > The above command returns the JSON that was POSTed.
 
 ```json
 {
-    "publisher_id": "00e040000001",
+	"publisher_id": "00e040000001",
 	"subscriber_id": "00e040000002",
-    "publisher_events": ["amplitude"]
+	"publisher_events": ["amplitude"]
 }
 ```
 
@@ -59,6 +72,15 @@ amplitude:level:active     | generic, when there is high voltage (eg during a su
 amplitude:level:idle       | generic, when there is low voltage (eg during a long nap or maybe just released)
 
 ## List subscriptions
+
+```javascript
+api.subscriptions({ publisher_id: "00e040000001" })
+
+api.subscriptions({ subscriber_id: "00e040000002" })
+
+api.subscriptions({ publisher_id: "00e040000001", subscriber_id: "00e040000002" })
+
+```
 
 ```shell
 

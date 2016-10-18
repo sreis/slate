@@ -3,7 +3,7 @@ title: API Reference
 
 language_tabs:
   - shell
-  - ruby
+  - javascript
 
 toc_footers:
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -17,6 +17,14 @@ search: true
 ---
 
 # Introduction
+
+```javascript
+
+// More information available on our github page at
+// https://github.com/littlebits/cloud-client-api-http
+
+npm install --save @littlebits/cloud-http
+```
 
 Welcome to the litteBits Cloud API! You can use our API to access
 litteBits Cloud API endpoints to manage your cloudbits.
@@ -42,10 +50,9 @@ response code 429 will be returned with an rate_limit_exceeded error.
 
 > To authorize, use this code:
 
-```ruby
-require 'littleBits'
-
-api = littleBits::APIClient.authorize!('meowmeowmeow')
+```javascript
+var api = require('littlebits-cloud-http')
+	  .defaults({ access_token: 'meowmeowmeow' })
 ```
 
 ```shell
@@ -67,4 +74,3 @@ to the server in a header that looks like the following:
 <aside class="notice">
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
-

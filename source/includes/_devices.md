@@ -2,11 +2,8 @@
 
 ## Get All Your Devices
 
-```ruby
-require 'littleBits'
-
-api = littleBits::APIClient.authorize!('meowmeowmeow')
-api.devices.get
+```javascript
+api.devices()
 ```
 
 ```shell
@@ -72,11 +69,8 @@ curl "https://api-http.littlebitscloud.cc/v2/devices" \
 
 ## Get a Specific Device
 
-```ruby
-import littleBits
-
-api = littleBits.authorize('meowmeowmeow')
-api.device.get("00e040000001")
+```javascript
+api.devices('00e040000001')
 ```
 
 ```shell
@@ -151,6 +145,10 @@ Parameter | Description
 
 ## Output voltage on device
 
+```javascript
+api.ouput({ device_id: 00e040000001, percent: 100, duration_ms: 3000 }
+```
+
 ```shell
 curl "https://api-http.littlebitscloud.cc/v2/devices/00e040000001/output" \
   -X POST \
@@ -177,4 +175,3 @@ Parameter | Description
 --------- | -----------
   percent | A percent of the maximum current output between 0 and 100. Default is 100.
   duration_ms | Output will be sustained for the given milliseconds. If duration_ms is -1 it will last forever or until another ouput is received by device. Maximum is 32000 and default is 3000 (3 seconds).
-
