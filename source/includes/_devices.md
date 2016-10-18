@@ -80,7 +80,7 @@ api.device.get("00e040000001")
 ```
 
 ```shell
-curl "http://api-http.littlebitscloud.cc/v2/devices/00e040000001" \
+curl "https://api-http.littlebitscloud.cc/v2/devices/00e040000001" \
   -H "Authorization: meowmeowmeow"
 ```
 
@@ -120,48 +120,14 @@ curl "http://api-http.littlebitscloud.cc/v2/devices/00e040000001" \
 
 This endpoint retrieves a specific device.
 
-## Update Device Model
-
+## Update Device Settings
 
 ```shell
-curl "http://api-http.littlebitscloud.cc/v2/devices/00e040000001" \
+curl "https://api-http.littlebitscloud.cc/v2/devices/00e040000001" \
   -X PUT \
-  -H "Authorization: meowmeowmeow"
-  -d '{"label": "cloudbit", "input_interval_ms": 250}'
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-		"label": "my cloudbit 1",
-		"id": "00e040000001",
-		"user_id": 1,
-		"is_connected": false,
-		"subscriptions":[
-			{
-				"publisher_id": "00e040000002",
-				"subscriber_id": "00e040000001",
-				"publisher_events":[
-					{
-						"name": "amplitude"
-					}
-				]
-			},
-		{
-				"publisher_id": "00e040000001",
-				"subscriber_id": "https://yourserver.com/endpoint",
-				"publisher_events":[
-					{
-						"name": "amplitude:delta:ignite"
-					}
-				]
-			}
-		],
-		"subscribers": [
-		],
-		"input_interval_ms": 750
-}
+  -H "Authorization: meowmeowmeow" \
+  -H "Content-type: application/json" \
+  -d '{ "update": { "label": "cloudbit", "input_interval_ms": 250 } }'
 ```
 
 This endpoint updates a specific device.
@@ -174,11 +140,11 @@ This endpoint updates a specific device.
 
 Parameter | Description
 --------- | -----------
-  ID | The ID of the device to retrieve
+  ID | The ID of the device to update
 
 ### JSON Payload
 
 Parameter | Description
 --------- | -----------
   label | The new label for this device. Default is "cloudbit"
-  input_interval_ms | Interval in milliseconds when input is read and broadcast. Default is 250ms.
+  input_interval_ms | Interval in milliseconds when input is read and broadcast. Default is 250 and the minimum is 200.
