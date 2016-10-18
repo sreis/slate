@@ -4,7 +4,6 @@ title: API Reference
 language_tabs:
   - shell
   - ruby
-  - python
 
 toc_footers:
   - <a href='https://github.com/tripit/slate'>Documentation Powered by Slate</a>
@@ -46,12 +45,6 @@ response code 429 will be returned with an rate_limit_exceeded error.
 require 'littleBits'
 
 api = littleBits::APIClient.authorize!('meowmeowmeow')
-```
-
-```python
-import littleBits
-
-api = littleBits.authorize('meowmeowmeow')
 ```
 
 ```shell

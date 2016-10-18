@@ -9,13 +9,6 @@ api = littleBits::APIClient.authorize!('meowmeowmeow')
 api.devices.get
 ```
 
-```python
-import littleBits
-
-api = littleBits.authorize('meowmeowmeow')
-api.devices.get()
-```
-
 ```shell
 curl "https://api-http.littlebitscloud.cc/v2/devices" \
   -H "Authorization: Bearer meowmeowmeow"
@@ -80,13 +73,6 @@ curl "https://api-http.littlebitscloud.cc/v2/devices" \
 ## Get a Specific Device
 
 ```ruby
-require 'littleBits'
-
-api = littleBit::APIClient.authorize!('meowmeowmeow')
-api.device.get("00e040000001")
-```
-
-```python
 import littleBits
 
 api = littleBits.authorize('meowmeowmeow')
