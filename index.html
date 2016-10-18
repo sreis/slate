@@ -91,7 +91,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;]">
+  <body class="index" data-languages="[&quot;shell&quot;,&quot;javascript&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -102,8 +102,7 @@
       <img src="images/logo.png" />
         <div class="lang-selector">
               <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
+              <a href="#" data-language-name="javascript">javascript</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -119,6 +118,12 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id="introduction">Introduction</h1>
+<pre class="highlight javascript"><code>
+<span class="c1">// More information available on our github page at</span>
+<span class="c1">// https://github.com/littlebits/cloud-client-api-http</span>
+
+<span class="nx">npm</span> <span class="nx">install</span> <span class="o">--</span><span class="nx">save</span> <span class="err">@</span><span class="nx">littlebits</span><span class="o">/</span><span class="nx">cloud</span><span class="o">-</span><span class="nx">http</span>
+</code></pre>
 
 <p>Welcome to the litteBits Cloud API! You can use our API to access
 litteBits Cloud API endpoints to manage your cloudbits.</p>
@@ -131,21 +136,24 @@ programming language of the examples with the tabs in the top right.</p>
 <a href="https://github.com/tripit/slate">Slate</a>. Feel free to edit it and use
 it as a base for your own API&rsquo;s documentation.</p>
 
+<h1 id="rate-limiting">Rate limiting</h1>
+
+<p>The littleBits Cloud API is rate limited to prevent abuse that would
+degrade our ability to maintain consistent API performance for all
+users. By default, each API key or app is rate limited at 1800
+requests per hour. If your requests are being rate limited, HTTP
+response code 429 will be returned with an rate_limit_exceeded error.</p>
+
 <h1 id="authentication">Authentication</h1>
 
 <blockquote>
 <p>To authorize, use this code:</p>
 </blockquote>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'littleBits'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">littleBits</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">littleBits</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">littleBits</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
+<pre class="highlight javascript"><code><span class="kd">var</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'littlebits-cloud-http'</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">defaults</span><span class="p">({</span> <span class="na">access_token</span><span class="p">:</span> <span class="s1">'meowmeowmeow'</span> <span class="p">})</span>
 </code></pre>
 <pre class="highlight shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"https://api-http.littlebitscloud.cc"</span>
+curl <span class="s2">"https://api-http.littlebitscloud.cc"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer meowmeowmeow"</span>
 </code></pre>
 
@@ -165,20 +173,12 @@ to the server in a header that looks like the following:</p>
 You must replace <code>meowmeowmeow</code> with your personal API key.
 </aside>
 
-<h1 id="devices">Devices</h1>
+          <h1 id="devices">Devices</h1>
 
 <h2 id="get-all-your-devices">Get All Your Devices</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'littleBits'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">littleBits</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">devices</span><span class="p">.</span><span class="nf">get</span>
+<pre class="highlight javascript"><code><span class="nx">api</span><span class="p">.</span><span class="nx">devices</span><span class="p">()</span>
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">littleBits</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">littleBits</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">devices</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/devices"</span>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/devices"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: Bearer meowmeowmeow"</span>
 </code></pre>
 
@@ -239,17 +239,9 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </span></code></pre>
 
 <h2 id="get-a-specific-device">Get a Specific Device</h2>
-<pre class="highlight ruby"><code><span class="nb">require</span> <span class="s1">'littleBits'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">littleBit</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">device</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="s2">"00e040000001"</span><span class="p">)</span>
+<pre class="highlight javascript"><code><span class="nx">api</span><span class="p">.</span><span class="nx">devices</span><span class="p">(</span><span class="s1">'00e040000001'</span><span class="p">)</span>
 </code></pre>
-<pre class="highlight python"><code><span class="kn">import</span> <span class="nn">littleBits</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">littleBits</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">device</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"00e040000001"</span><span class="p">)</span>
-</code></pre>
-<pre class="highlight shell"><code>curl <span class="s2">"http://api-http.littlebitscloud.cc/v2/devices/00e040000001"</span>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/devices/00e040000001"</span> <span class="se">\</span>
   -H <span class="s2">"Authorization: meowmeowmeow"</span>
 </code></pre>
 
@@ -289,9 +281,19 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 
 <p>This endpoint retrieves a specific device.</p>
 
+<h2 id="update-device-settings">Update Device Settings</h2>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/devices/00e040000001"</span> <span class="se">\</span>
+  -X PUT <span class="se">\</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{ "update": { "label": "cloudbit", "input_interval_ms": 250 } }'</span>
+</code></pre>
+
+<p>This endpoint updates a specific device.</p>
+
 <h3 id="http-request">HTTP Request</h3>
 
-<p><code class="prettyprint">GET https://api-http.littlebitscloud.cc/v2/devices/&lt;ID&gt;</code></p>
+<p><code class="prettyprint">PUT https://api-http.littlebitscloud.cc/v2/devices/&lt;ID&gt;</code></p>
 
 <h3 id="url-parameters">URL Parameters</h3>
 
@@ -303,15 +305,278 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </thead><tbody>
 <tr>
 <td>ID</td>
-<td>The ID of the device to retrieve</td>
+<td>The ID of the device to update</td>
+</tr>
+</tbody></table>
+
+<h3 id="json-payload">JSON Payload</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>label</td>
+<td>The new label for this device. Default is &ldquo;cloudbit&rdquo;</td>
+</tr>
+<tr>
+<td>input_interval_ms</td>
+<td>Interval in milliseconds when input is read and broadcast. Default is 250 and the minimum is 200.</td>
+</tr>
+</tbody></table>
+
+<h2 id="output-voltage-on-device">Output voltage on device</h2>
+<pre class="highlight javascript"><code><span class="nx">api</span><span class="p">.</span><span class="nx">ouput</span><span class="p">({</span> <span class="na">device_id</span><span class="p">:</span> <span class="mi">00</span><span class="nx">e040000001</span><span class="p">,</span> <span class="na">percent</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="na">duration_ms</span><span class="p">:</span> <span class="mi">3000</span> <span class="p">}</span>
+</code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/devices/00e040000001/output"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{ "percent": 100, "duration_ms": 3000 }'</span>
+</code></pre>
+
+<p>This endpoint outputs voltage on a device.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api-http.littlebitscloud.cc/v2/devices/&lt;ID&gt;/output</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the device to send output to</td>
+</tr>
+</tbody></table>
+
+<h3 id="json-payload">JSON Payload</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>percent</td>
+<td>A percent of the maximum current output between 0 and 100. Default is 100.</td>
+</tr>
+<tr>
+<td>duration_ms</td>
+<td>Output will be sustained for the given milliseconds. If duration_ms is -1 it will last forever or until another ouput is received by device. Maximum is 32000 and default is 3000 (3 seconds).</td>
+</tr>
+</tbody></table>
+
+          <h1 id="subscriptions">Subscriptions</h1>
+
+<h2 id="create-subscription">Create subscription</h2>
+
+<p>Use this endpoint to create a subscription between devices or to receive events in a HTTP server that you control.</p>
+<pre class="highlight javascript"><code><span class="nx">api</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">({</span> <span class="na">publisher_id</span><span class="p">:</span> <span class="mi">00</span><span class="nx">e040000001</span><span class="p">,</span> <span class="na">subscriber_id</span><span class="p">:</span> <span class="mi">00</span><span class="nx">e040000002</span> <span class="p">})</span>
+
+<span class="nx">api</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">({</span> <span class="na">publisher_id</span><span class="p">:</span> <span class="mi">00</span><span class="nx">e040000001</span><span class="p">,</span> <span class="na">subscriber_id</span><span class="p">:</span> <span class="mi">00</span><span class="nx">e040000002</span> <span class="p">})</span>
+
+<span class="nx">api</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">({</span>
+    <span class="na">publisher_id</span><span class="p">:</span> <span class="mi">00</span><span class="nx">e040000001</span><span class="p">,</span>
+    <span class="na">subscriber_id</span><span class="p">:</span> <span class="mi">00</span><span class="nx">e040000002</span><span class="p">,</span>
+    <span class="na">publisher_events</span><span class="p">:</span> <span class="p">[</span><span class="s1">'amplitude'</span><span class="p">]</span>
+<span class="p">})</span>
+</code></pre>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/subscriptions"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{ "publisher_id": "00e040000001" ,"subscriber_id": "00e040000002" }'</span>
+
+curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/subscriptions"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{ "publisher_id": "00e040000001" ,"subscriber_id": "http://yourserver.com/endpoint" }'</span>
+
+curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/subscriptions"</span> <span class="se">\</span>
+  -X POST <span class="se">\</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{ "publisher_id": "00e040000001" ,"subscriber_id": "00e040000002", "publisher_events: "['</span>amplitude<span class="s1">']" }'</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns the JSON that was POSTed.</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="nt">"publisher_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00e040000001"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"subscriber_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00e040000002"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"publisher_events"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">"amplitude"</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">POST https://api-http.littlebitscloud.cc/v2/subscriptions</code></p>
+
+<h3 id="json-payload">JSON Payload</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>publisher_id</td>
+<td>Device id of publisher.</td>
+</tr>
+<tr>
+<td>subscriber_id</td>
+<td>Device id or callback URI. You must ensure that URI is accessible to the Internet.</td>
+</tr>
+<tr>
+<td>publisher_events</td>
+<td>Events to subscribe to. Defaults to [&ldquo;amplitude:delta:ignite&rdquo;]</td>
+</tr>
+</tbody></table>
+
+<p>Available events to subscribe to.</p>
+
+<table><thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>amplitude</td>
+<td>when there is any voltage (catch-all, default)</td>
+</tr>
+<tr>
+<td>amplitude:delta:sustain</td>
+<td>when high voltage is constant (eg button being held)</td>
+</tr>
+<tr>
+<td>amplitude:delta:ignite</td>
+<td>when there is significant voltage jump (eg button press)</td>
+</tr>
+<tr>
+<td>amplitude:delta:release</td>
+<td>when there is significant voltage drop (eg button release)</td>
+</tr>
+<tr>
+<td>amplitude:delta:nap</td>
+<td>when low voltage is constant (eg idle bitSnap system)</td>
+</tr>
+<tr>
+<td>amplitude:level:active</td>
+<td>generic, when there is high voltage (eg during a sustain or maybe just ignited)</td>
+</tr>
+<tr>
+<td>amplitude:level:idle</td>
+<td>generic, when there is low voltage (eg during a long nap or maybe just released)</td>
+</tr>
+</tbody></table>
+
+<h2 id="list-subscriptions">List subscriptions</h2>
+<pre class="highlight javascript"><code><span class="nx">api</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">({</span> <span class="na">publisher_id</span><span class="p">:</span> <span class="s2">"00e040000001"</span> <span class="p">})</span>
+
+<span class="nx">api</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">({</span> <span class="na">subscriber_id</span><span class="p">:</span> <span class="s2">"00e040000002"</span> <span class="p">})</span>
+
+<span class="nx">api</span><span class="p">.</span><span class="nx">subscriptions</span><span class="p">({</span> <span class="na">publisher_id</span><span class="p">:</span> <span class="s2">"00e040000001"</span><span class="p">,</span> <span class="na">subscriber_id</span><span class="p">:</span> <span class="s2">"00e040000002"</span> <span class="p">})</span>
+
+</code></pre>
+<pre class="highlight shell"><code>
+curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/subscriptions?publisher_id=00e040000001"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer meowmeowmeow"</span>
+
+curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/subscriptions?subscriber_id=00e040000002"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer meowmeowmeow"</span>
+
+curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/subscriptions?publisher_id=00e040000001&amp;subscriber_id=00e040000002"</span> <span class="se">\</span>
+  -H <span class="s2">"Authorization: Bearer meowmeowmeow"</span>
+</code></pre>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"publisher_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00e040000001"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscriber_id"</span><span class="p">:</span><span class="s2">"00e040000002"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"publisher_events"</span><span class="p">:[</span><span class="s2">"amplitude"</span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"publisher_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00e040000001"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"subscriber_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://yourserver.com/endpoint"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"publisher_events"</span><span class="p">:[</span><span class="s2">"amplitude:delta:ignite"</span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
+</span></code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">GET https://api-http.littlebitscloud.cc/v2/subscriptions?publisher_id=&lt;ID&gt;&amp;subscriber_id=&lt;ID or HTTP endpoint&gt;</code></p>
+
+<h3 id="request-parameters">Request Parameters</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>publisher_id</td>
+<td>List subscriptions where given device is a publisher</td>
+</tr>
+<tr>
+<td>subscriber_id</td>
+<td>List subscriptions where given device is a subscriber. It can be a device ID or a callback URI.</td>
+</tr>
+</tbody></table>
+
+<p>You can provide publisher_id, subscriber_id or both.</p>
+
+<h2 id="delete-a-subscription">Delete a Subscription</h2>
+
+<p>Remove a subscription between a publisher and a subscriber.</p>
+<pre class="highlight shell"><code>curl <span class="s2">"https://api-http.littlebitscloud.cc/v2/subscriptions"</span> <span class="se">\</span>
+  -X DELETE <span class="se">\</span>
+  -H <span class="s2">"Authorization: meowmeowmeow"</span> <span class="se">\</span>
+  -H <span class="s2">"Content-type: application/json"</span> <span class="se">\</span>
+  -d <span class="s1">'{ "publisher_id": "00e040000001" ,"subscriber_id": "http://yourserver.com/endpoint" }'</span>
+
+</code></pre>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code class="prettyprint">DELETE https://api-http.littlebitscloud.cc/v2/subscriptions</code></p>
+
+<h3 id="json-payload">JSON Payload</h3>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscriber_id</td>
+<td>Device id or callback URI.</td>
+</tr>
+<tr>
+<td>publisher_id</td>
+<td>Device id of publisher.</td>
 </tr>
 </tbody></table>
 
           <h1 id="errors">Errors</h1>
-
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files&hellip;just save them to the `includes` folder and add them to the top of your `index.md`&rsquo;s frontmatter. Files are included in the order listed.</aside>
-
-<p>The Kittn API uses the following error codes:</p>
 
 <table><thead>
 <tr>
@@ -321,7 +586,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request &ndash; Your request sucks</td>
+<td>Bad Request &ndash; Your request is badly formed</td>
 </tr>
 <tr>
 <td>401</td>
@@ -329,27 +594,19 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
 </tr>
 <tr>
 <td>403</td>
-<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+<td>Forbidden &ndash; You do not have permission to access that device</td>
 </tr>
 <tr>
 <td>404</td>
-<td>Not Found &ndash; The specified kitten could not be found</td>
+<td>Not Found &ndash; The specified device could not be found</td>
 </tr>
 <tr>
 <td>405</td>
-<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+<td>Method Not Allowed &ndash; You tried to access a device with an invalid method</td>
 </tr>
 <tr>
 <td>406</td>
 <td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
-</tr>
-<tr>
-<td>410</td>
-<td>Gone &ndash; The kitten requested has been removed from our servers</td>
-</tr>
-<tr>
-<td>418</td>
-<td>I&rsquo;m a teapot</td>
 </tr>
 <tr>
 <td>429</td>
@@ -369,8 +626,7 @@ You must replace <code>meowmeowmeow</code> with your personal API key.
       <div class="dark-box">
           <div class="lang-selector">
                 <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
+                <a href="#" data-language-name="javascript">javascript</a>
           </div>
       </div>
     </div>
