@@ -28,6 +28,15 @@ This example API documentation page was created with
 [Slate](https://github.com/tripit/slate). Feel free to edit it and use
 it as a base for your own API's documentation.
 
+
+# Rate limiting
+
+The littleBits Cloud API is rate limited to prevent abuse that would
+degrade our ability to maintain consistent API performance for all
+users. By default, each API key or app is rate limited at 1800
+requests per hour. If your requests are being rate limited, HTTP
+response code 429 will be returned with an rate_limit_exceeded error.
+
 # Authentication
 
 > To authorize, use this code:
