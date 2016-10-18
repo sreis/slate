@@ -10,6 +10,7 @@ toc_footers:
 
 includes:
   - devices
+  - subscriptions
   - errors
 
 search: true
